@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from random import randint
 from time import sleep
+import json
 
 class BinusBot(commands.Cog):
     def __init__(self, bot):
@@ -17,13 +18,16 @@ class BinusBot(commands.Cog):
         await self.bot.change_presence(status = discord.Status.online, activity = discord.Game('Ready to accept commands'))   
 
     '''
-    Creates an announcement when someone joins the server and sends
-    the new member the rules of the server.
+    Creates an announcement when someone joins the server, sends
+    the new member the rules of the server in private message, and
+    adds their ID to the json.
     '''
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        #Announcement
         channel = self.bot.get_channel(635840445079093250)
         await channel.send(f'Please welcome {member.mention} to the server', delete_after = 10)
+        #Rules messaging
         await member.send(
             f'Welcome to Binus Discord server \n' +
             f'Please read the rules below: \n' +
@@ -31,14 +35,30 @@ class BinusBot(commands.Cog):
             f'2. Do not send inflammatory messages in the server or to anyone in the server \n' +
             f'Breaking these rules will result in a perma ban.'
         )
+        #Registering the new user to the json
+        with open('json/userxp.json') as fp:
+            users = json.load(fp)
+        if str(member.id) not in users["users"]:
+            users["users"].update({str(member.id): 0})
+            with open('json/userxp.json', 'w') as fileToDump:
+                json.dump(users, fileToDump, indent = 4)
+        else:
+            pass
 
     '''
     Creates an announcement when someone gets banned from the server
+    and removed them from userxp.json
     '''
     @commands.Cog.listener()
     async def on_member_ban(self, guild, member):
-        channel = self.bot.get_channel(635840445079093250)
-        await channel.send(f'User {member} has been banned from the server', delete_after = 10)
+        with open('json/userxp.json') as fp:
+            users = json.load(fp)
+        try:
+            del users["users"][str(member.id)]
+            with open('json/userxp.json', 'w') as fileToDump:
+                json.dump(users, fileToDump, indent = 4)
+        except KeyError:
+            print('Key doesn\'t exist. Add member id manually to the json.')
 
     '''
     Creates an announcement when someone gets unbanned in the server
@@ -46,7 +66,7 @@ class BinusBot(commands.Cog):
     @commands.Cog.listener()
     async def on_member_unban(self, guild, member):
         channel = self.bot.get_channel(635840445079093250)
-        await channel.send(f'User {member} has been unbanned from the server', delete_after = 10)
+        await channel.send(f'User {member.mention} has been unbanned from the server', delete_after = 10)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -57,7 +77,6 @@ class BinusBot(commands.Cog):
         If yes, then the bot delete the last message the sends a reminder
         as a response.
         '''
-
         if message.author.id == 635833390238793729:
             return
 
@@ -82,15 +101,13 @@ class BinusBot(commands.Cog):
             harassUserList = fp.read().splitlines()
         with open('txt/harassmentreponses.txt', 'r') as fp:
             harassmentResponses = fp.read().splitlines()
-        print(message.author)
-        print(harassUserList)
         if str(message.author) in harassUserList:
             try:
                 randNum = randint(0, len(harassmentResponses) - 1)
                 await message.channel.send(f'{message.author.mention} {harassmentResponses[randNum]}')
                 if randNum == 6:
                     sleep(5)
-                    await message.channel.send(f'{message.author.mention} Sike, bitch')
+                    await message.channel.send(f'{message.author.mention} Sike, b*tch')
                 else:
                     pass
             except IndexError:
@@ -129,9 +146,10 @@ class BinusBot(commands.Cog):
     '''
     @commands.command()
     async def kick(self, ctx, member: discord.Member, *, reason = None):
+        sendChannel = self.bot.get_channel(635840445079093250)
         if ctx.author.id == 204172911962095616: 
             await member.kick(reason = reason)
-            await ctx.channel.send(f'User {member.mention} has been kicked due to: {reason}')
+            await sendChannel.send(f'User {member.mention} has been kicked due to: {reason}', delete_after = 10)
         else:
             await ctx.channel.send(self.noPerm)
 
@@ -140,9 +158,10 @@ class BinusBot(commands.Cog):
     '''
     @commands.command()
     async def ban(self, ctx, member: discord.Member, *, reason = None):
+        sendChannel = self.bot.get_channel(635840445079093250)
         if ctx.author.id == 204172911962095616: 
             await member.ban(reason = reason)
-            await ctx.channel.send(f'User {member.mention} has been banned due to: {reason}')
+            await sendChannel.send(f'User {member.mention} has been banned due to: {reason}', delete_after = 10)
         else:
             await ctx.channel.send(self.noPerm)
 
