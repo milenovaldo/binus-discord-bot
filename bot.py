@@ -7,7 +7,12 @@ import json
 class BinusBot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.noPerm = 'You do not have permission to run this command'
+
+    def noPerm(self):
+        return 'You do not have permission to run this command'
+
+    def levelUpAnnouncement(self, mention, role):
+        return f'{mention} have leveled up to {role}'
     
     '''
     Notifies us when the bot is ready to function.
@@ -26,7 +31,7 @@ class BinusBot(commands.Cog):
     async def on_member_join(self, member):
         #Announcement
         channel = self.bot.get_channel(635840445079093250)
-        await channel.send(f'Please welcome {member.mention} to the server', delete_after = 10)
+        await channel.send(f'Please welcome {member.mention} to the server')
         #Rules messaging
         await member.send(
             f'Welcome to Binus Discord server \n' +
@@ -112,7 +117,38 @@ class BinusBot(commands.Cog):
                     pass
             except IndexError:
                 print('Harassment response empty. Fill in the "harassmentreponses.txt"')
-
+        '''
+        Level up system
+        adds experience points every time a user sends a message
+        in the server
+        '''
+        with open('json/userxp.json') as fp:
+            users = json.load(fp)
+        users['users'][str(message.author.id)] += 1
+        with open('json/userxp.json', 'w') as fileToDump:
+            json.dump(users, fileToDump, indent = 4)
+        authorXP = users['users'][str(message.author.id)]
+        if authorXP == 10:
+            role = discord.utils.get(message.guild.roles, id = 638181731794681866)
+            await message.author.add_roles(role)
+            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        elif authorXP == 30:
+            role = discord.utils.get(message.guild.roles, id = 638181995909873694)
+            await message.author.add_roles(role)
+            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        elif authorXP == 90:
+            role = discord.utils.get(message.guild.roles, id = 638182182136840202)
+            await message.author.add_roles(role)
+            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        elif authorXP == 270:
+            role = discord.utils.get(message.guild.roles, id = 638182260264403024)
+            await message.author.add_roles(role)
+            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        elif authorXP == 810:
+            role = discord.utils.get(message.guild.roles, id = 638182260264403024)
+            await message.author.add_roles(role)
+            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        
     '''
     Command to ask the latency of the bot in milliseconds
     '''
@@ -128,7 +164,7 @@ class BinusBot(commands.Cog):
         if ctx.author.id == 204172911962095616:
             await ctx.channel.purge(limit = numberOfMessages)
         else:
-            await ctx.channel.send(self.noPerm)
+            await ctx.channel.send(self.noPerm())
     '''
     This command lets the whitelisted user to create a custom announcement 
     in the server.
@@ -139,7 +175,7 @@ class BinusBot(commands.Cog):
         if ctx.author.id == 204172911962095616 and ctx.channel.id == 636045039386230784:        #Checks to see if the command is written by a whitelisted user and in the right channel
             await sendChannel.send(f'@everyone {message}')
         else:
-            await ctx.channel.send(self.noPerm)
+            await ctx.channel.send(self.noPerm())
     
     '''
     This command kicks the user that is mentioned
@@ -151,7 +187,7 @@ class BinusBot(commands.Cog):
             await member.kick(reason = reason)
             await sendChannel.send(f'User {member.mention} has been kicked due to: {reason}', delete_after = 10)
         else:
-            await ctx.channel.send(self.noPerm)
+            await ctx.channel.send(self.noPerm())
 
     '''
     This command bans the user that is mentioned
@@ -163,7 +199,7 @@ class BinusBot(commands.Cog):
             await member.ban(reason = reason)
             await sendChannel.send(f'User {member.mention} has been banned due to: {reason}', delete_after = 10)
         else:
-            await ctx.channel.send(self.noPerm)
+            await ctx.channel.send(self.noPerm())
 
 
     '''
@@ -177,9 +213,9 @@ class BinusBot(commands.Cog):
             toBeAdded = ctx.message.mentions                #List of users mentioned in the message
             with open('txt/peopletoharass.txt', 'a') as fp:
                 for user in toBeAdded:
-                    fp.write(f'{user}\n')      
+                    fp.write(f'{user}\n')
         else:
-            ctx.channel.send(self.noPerm)
+            ctx.channel.send(self.noPerm())
 
 '''
 Sets up the bot object as a cog
