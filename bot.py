@@ -145,7 +145,7 @@ class BinusBot(commands.Cog):
             await message.author.add_roles(role)
             await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
         elif authorXP == 810:
-            role = discord.utils.get(message.guild.roles, id = 638182260264403024)
+            role = discord.utils.get(message.guild.roles, id = 638182302408769571)
             await message.author.add_roles(role)
             await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
         
