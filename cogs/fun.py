@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-import urllib.request, json
+import urllib.request
+import json
 
 class Fun(commands.Cog):
     def __init__(self, bot):
