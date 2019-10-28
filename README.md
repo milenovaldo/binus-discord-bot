@@ -23,7 +23,7 @@
  git clone https://github.com/milenovaldo/binus-discord-bot
  ```
 
-Setup:
+Setup:<br/>
 <a href = "https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token">Get the Discord token</a><br/>
 Then paste your token in "txt/token.txt"<br/>
 <a href = "https://steamcommunity.com/dev/apikey">Get steam API key</a><br/>
