@@ -33,6 +33,21 @@ class Fun(commands.Cog):
         embed.add_field(name = steamUser["personaname"], value = f'Total hours played: **{round(totalMinutes/60)}**')
         await ctx.channel.send(content=None, embed = embed)
 
+    '''
+    Prints the list of commands available to the users
+    '''
+    @commands.command(aliases = ['tolong'])
+    async def help(self, ctx):
+        embed = discord.Embed(title = 'Help', description = 'Help means tolong. It means you minta tolong', colour = 0x0080ff)
+        embed.set_thumbnail(url = 'https://image.psikolif.com/wp-content/uploads/2018/10/Logo-Binus-University-Universitas-Bina-Nusantara-PNG.png')
+        embed.add_field(name = '!ping', value = 'Returns the latency of the bot to the server', inline = False)
+        embed.add_field(name = '!clear/!clr <integer>', value = 'Clears the past <integer> messages', inline = False)
+        embed.add_field(name = '!announce/!broadcast <message>', value = 'Creates a server wide announcement containing <message>', inline = False)
+        embed.add_field(name = '!kick <mentionuser> <reason:optional>', value = 'Kicks a mentioned user', inline = False)
+        embed.add_field(name = '!ban <mentionuser> <reason:optional>', value = 'Bans a mentioned user', inline = False)
+        embed.add_field(name = '!harass <mentionuser(can be multiple users)>', value = 'Makes the bot harass the mentioned user forever')
+        await ctx.channel.send(content = None, embed = embed)
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))

@@ -9,6 +9,8 @@ extensions = [
     'cogs.fun'
 ]
 
+client.remove_command('help')               #Removes the default 'help' command
+
 for extension in extensions:                #Loads listener.py, admin.py and fun.py
     client.load_extension(extension)
 

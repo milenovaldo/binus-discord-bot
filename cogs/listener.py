@@ -16,7 +16,7 @@ class Listener(commands.Cog):
     '''
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Logged in as {self.bot.user}')  
+        print(f'Logged in as {self.bot.user}')
         await self.bot.change_presence(status = discord.Status.online, activity = discord.Game('Ready to accept commands'))   
 
     '''
