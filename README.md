@@ -46,4 +46,4 @@ Then paste it in "txt/steamapi.txt"<br/><br/>
 
 <img width = 50% src = 'https://i.imgur.com/LuT1ViO.jpg'>
 
-Or type '!help' when the bot is running.
+Or type <b>'!help'</b> when the bot is running.
