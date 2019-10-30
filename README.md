@@ -40,6 +40,7 @@ Then paste it in "txt/steamapi.txt"<br/><br/>
     <li>Removes user from database when they get banned.</li>
     <li>Dirty word filtering. Deletes offensive messages and warns the user.</li>
     <li>Leveling system. Encourages user activity in the server.</li>
+    <li>Server wide logging saved to a txt file</li>
 </ul>
 
 ### Available commands:
