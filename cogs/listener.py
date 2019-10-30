@@ -1,12 +1,14 @@
-import discord
+import discord, json
 from discord.ext import commands
 from random import randint
 from time import sleep
-import json
+from datetime import datetime
 
 class Listener(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.currentDate = datetime.now().strftime('%Y-%m-%d')
+        self.currentTime = datetime.now().strftime('%H:%M:%S')
 
     def levelUpAnnouncement(self, mention, role):
         return f'{mention} have leveled up to {role}'
@@ -16,7 +18,10 @@ class Listener(commands.Cog):
     '''
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Logged in as {self.bot.user}')
+        print(
+            f'Logged in as {self.bot.user} \n'+
+            'Logging active'
+            )
         await self.bot.change_presence(status = discord.Status.online, activity = discord.Game('Ready to accept commands'))   
 
     '''
@@ -145,6 +150,14 @@ class Listener(commands.Cog):
             role = discord.utils.get(message.guild.roles, id = 638182302408769571)
             await message.author.add_roles(role)
             await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+
+        '''
+        Logs all the messages sent to the server.
+        '''
+        log = f'({self.currentTime}) {message.author}: {message.content}'
+        print(log)
+        with open(f'logs/{self.currentDate}.txt', 'a') as fpAppend:
+            fpAppend.write(f'{log}\n')
 
 '''
 Sets up the bot object as a cog
