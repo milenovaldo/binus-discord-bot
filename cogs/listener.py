@@ -124,40 +124,60 @@ class Listener(commands.Cog):
         adds experience points every time a user sends a message
         in the server
         '''
-        with open('json/userxp.json') as fp:
-            users = json.load(fp)
-        users['users'][str(message.author.id)] += 1
-        with open('json/userxp.json', 'w') as fileToDump:
-            json.dump(users, fileToDump, indent = 4)
-        authorXP = users['users'][str(message.author.id)]
-        if authorXP == 10:
-            role = discord.utils.get(message.guild.roles, id = 638181731794681866)
-            await message.author.add_roles(role)
-            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
-        elif authorXP == 30:
-            role = discord.utils.get(message.guild.roles, id = 638181995909873694)
-            await message.author.add_roles(role)
-            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
-        elif authorXP == 90:
-            role = discord.utils.get(message.guild.roles, id = 638182182136840202)
-            await message.author.add_roles(role)
-            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
-        elif authorXP == 270:
-            role = discord.utils.get(message.guild.roles, id = 638182260264403024)
-            await message.author.add_roles(role)
-            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
-        elif authorXP == 810:
-            role = discord.utils.get(message.guild.roles, id = 638182302408769571)
-            await message.author.add_roles(role)
-            await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        try:
+            with open('json/userxp.json') as fp:
+                users = json.load(fp)
+            users['users'][str(message.author.id)] += 1
+            with open('json/userxp.json', 'w') as fileToDump:
+                json.dump(users, fileToDump, indent = 4)
+            authorXP = users['users'][str(message.author.id)]
+            if authorXP == 10:
+                role = discord.utils.get(message.guild.roles, id = 638181731794681866)
+                await message.author.add_roles(role)
+                await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+            elif authorXP == 30:
+                role = discord.utils.get(message.guild.roles, id = 638181995909873694)
+                await message.author.add_roles(role)
+                await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+            elif authorXP == 90:
+                role = discord.utils.get(message.guild.roles, id = 638182182136840202)
+                await message.author.add_roles(role)
+                await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+            elif authorXP == 270:
+                role = discord.utils.get(message.guild.roles, id = 638182260264403024)
+                await message.author.add_roles(role)
+                await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+            elif authorXP == 810:
+                role = discord.utils.get(message.guild.roles, id = 638182302408769571)
+                await message.author.add_roles(role)
+                await message.channel.send(self.levelUpAnnouncement(message.author.mention, role.name))
+        except:
+            pass
 
         '''
-        Logs all the messages sent to the server.
+        This block of code sends a motivational message 
+        to encourage you to get a girlfriend/boyfriend 
+        if the bot receives a Direct Message from anyone.
         '''
-        log = f'({self.currentTime}) {message.author}: {message.content}'
+        if message.channel.type == discord.ChannelType.private:
+            DMresponses = [
+                'Get a girlfriend bro (or boyfriend).',
+                'I have a boyfriend',
+                'I\'m already committed to someone. Find someone else.'
+            ]
+            await message.author.send(DMresponses[randint(0, len(DMresponses) - 1)])
+            return
+        else:
+            pass
+
+        '''
+        Logs all the messages sent.
+        '''
+        log = f'{message.channel}: ({self.currentTime}) {message.author}: {message.content}'
         print(log)
         with open(f'logs/{self.currentDate}.txt', 'a') as fpAppend:
             fpAppend.write(f'{log}\n')
+
 
 '''
 Sets up the bot object as a cog

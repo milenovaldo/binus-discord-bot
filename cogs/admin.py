@@ -21,7 +21,7 @@ class Admin(commands.Cog):
     @commands.command(aliases = ['clear', 'clr'])
     async def clearMessages(self, ctx, numberOfMessages: int = 10):
         if ctx.author.id == 204172911962095616:
-            await ctx.channel.purge(limit = numberOfMessages)
+            await ctx.channel.purge(limit = (numberOfMessages + 1))
         else:
             await ctx.channel.send(self.noPerm())
     '''

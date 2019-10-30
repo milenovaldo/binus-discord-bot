@@ -41,10 +41,11 @@ Then paste it in "txt/steamapi.txt"<br/><br/>
     <li>Dirty word filtering. Deletes offensive messages and warns the user.</li>
     <li>Leveling system. Encourages user activity in the server.</li>
     <li>Server wide logging saved to a txt file</li>
+    <li>Encourages you to get a girlfriend/boyfriend</li>
 </ul>
 
 ### Available commands:
 
-<img width = 50% src = 'https://i.imgur.com/LuT1ViO.jpg'>
+<img width = 50% src = 'https://i.ibb.co/b2VHbyZ/ss.jpg'>
 
 Or type <b>'!help'</b> when the bot is running.

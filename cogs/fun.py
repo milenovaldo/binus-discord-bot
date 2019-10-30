@@ -46,7 +46,8 @@ class Fun(commands.Cog):
         embed.add_field(name = '!announce/!broadcast <message>', value = 'Creates a server wide announcement containing <message>', inline = False)
         embed.add_field(name = '!kick <mentionuser> <reason:optional>', value = 'Kicks a mentioned user', inline = False)
         embed.add_field(name = '!ban <mentionuser> <reason:optional>', value = 'Bans a mentioned user', inline = False)
-        embed.add_field(name = '!harass <mentionuser(can be multiple users)>', value = 'Makes the bot harass the mentioned user forever')
+        embed.add_field(name = '!harass <mentionuser(can be multiple users)>', value = 'Makes the bot harass the mentioned user forever', inline = False)
+        embed.add_field(name = '!gamerflex/!steam <steamID64>', value = 'You\'ll either be proud or disappointed')
         await ctx.channel.send(content = None, embed = embed)
 
 
