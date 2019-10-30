@@ -35,7 +35,7 @@ class Fun(commands.Cog):
         await ctx.channel.send(content=None, embed = embed)
 
     '''
-    Prints the list of commands available to the users
+    Sends a message of the list of commands available to the users
     '''
     @commands.command(aliases = ['tolong'])
     async def help(self, ctx):
