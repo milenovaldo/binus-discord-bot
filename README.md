@@ -9,19 +9,17 @@
 
  ### Requires Python 3.5+ (Tested on 3.7.5)
 
- Installing requirements:
- ```
- # Windows
- pip install -r requirements.txt
-
- # OSX/Linux
- sudo pip install -r requirements.txt
- ```
-
  Clone the git:
  ```
  git clone https://github.com/milenovaldo/binus-discord-bot
  ```
+
+ Installing requirements:
+ ```
+ # Windows/OSX/Linux
+ pip install -r requirements.txt
+ ```
+
 
 Setup:<br/>
 <a href = "https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token">Get the Discord token</a><br/>
