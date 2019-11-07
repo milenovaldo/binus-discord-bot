@@ -7,7 +7,7 @@
 
  ## Installation and setup
 
- ### Requires Python 3.5+ (Tested on 3.7.5)
+ ### Requires Python 3.5+ (Tested on 3.7.5 AND 3.6.8)
 
  Clone the git:
  ```
