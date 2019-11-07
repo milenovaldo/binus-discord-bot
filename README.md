@@ -20,6 +20,14 @@
  pip install -r requirements.txt
  ```
 
+ Install FFMPEG and add to PATH in Windows <br/><br/>
+ <b>OR</b><br/>
+```
+# OSX/Linux
+sudo apt-get install ffmpeg
+```
+ 
+
 
 Setup:<br/>
 <a href = "https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token">Get the Discord token</a><br/>
@@ -44,6 +52,8 @@ Then paste it in "txt/steamapi.txt"<br/><br/>
 
 ### Available commands:
 
-<img width = 50% src = 'https://i.ibb.co/b2VHbyZ/ss.jpg'>
+<img width = 50% src = 'https://i.ibb.co/b2VHbyZ/ss.jpg'><br/>
+
+<img width = 50% src = 'https://i.imgur.com/HsLTeUH.jpg'><br/>
 
 Or type <b>'!help'</b> when the bot is running.

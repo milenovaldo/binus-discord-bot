@@ -47,8 +47,16 @@ class Fun(commands.Cog):
         embed.add_field(name = '!kick <mentionuser> <reason:optional>', value = 'Kicks a mentioned user', inline = False)
         embed.add_field(name = '!ban <mentionuser> <reason:optional>', value = 'Bans a mentioned user', inline = False)
         embed.add_field(name = '!harass <mentionuser(can be multiple users)>', value = 'Makes the bot harass the mentioned user forever', inline = False)
-        embed.add_field(name = '!gamerflex/!steam <steamID64>', value = 'You\'ll either be proud or disappointed')
-        await ctx.channel.send(content = None, embed = embed)
+        embed.add_field(name = '!gamerflex/!steam <steamID64>', value = 'You\'ll either be proud or disappointed', inline = False)
+        embed.add_field(name = '!play <songname/link>', value = 'Plays music of your choosing. Accepts song name or any url as parameter', inline = False)
+        embed.add_field(name = '!skip', value = 'skips the music that is currently playing', inline = False)
+        embed.add_field(name = '!np/!current/!playing', value = 'Shows the song title that is currently playing', inline = False)
+        embed.add_field(name = '!queue/!q', value = 'Lists the upcoming songs that will be played', inline = False)
+        embed.add_field(name = '!save', value = 'Saves the music that the bot is currently playing', inline = False)
+        embed.add_field(name = '!library', value = 'See the list of songs saved to your library', inline = False)
+        embed.add_field(name = '!playfromlibrary/!pfl <index>', value = 'Plays music from <index> of your music library', inline = False)
+        embed.add_field(name = '!removesong/!rm/!rs <index>', value = 'Removes song in <index> from your music library', inline = False)
+        await ctx.author.send(content = None, embed = embed)
 
 
 def setup(bot):
