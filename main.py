@@ -1,17 +1,18 @@
 import discord
 from discord.ext import commands
 
-client = commands.Bot(command_prefix='!')   
+client = commands.Bot(command_prefix='!')   #Specifies a command prefix
 
 extensions = [
     'cogs.listener',
     'cogs.admin',
-    'cogs.fun'
+    'cogs.fun',
+    'cogs.music'
 ]
 
 client.remove_command('help')               #Removes the default 'help' command
 
-for extension in extensions:                #Loads listener.py, admin.py and fun.py
+for extension in extensions:                #Loads listener.py, admin.py, fun.py and music.py
     client.load_extension(extension)
 
 with open('txt/token.txt', 'r') as fp:
