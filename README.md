@@ -23,8 +23,10 @@
  Install FFMPEG and add to PATH in Windows <br/><br/>
  <b>OR</b><br/>
 ```
-# OSX/Linux
+# Linux
 sudo apt-get install ffmpeg
+# OSX
+brew install ffmpeg
 ```
  
 
