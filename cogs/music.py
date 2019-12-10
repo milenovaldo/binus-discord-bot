@@ -183,7 +183,8 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.players = {}
-        self.whitelist = [204172911962095616]
+        with open('txt/whitelist.txt', 'r') as fp:
+            self.whitelist = fp.read().splitlines()
         self.noPerm = 'You do not have permission to run this command.'
         self.userNotFound = 'Your library is not found in our database. Please contact an admin.'
         self.vote = 0

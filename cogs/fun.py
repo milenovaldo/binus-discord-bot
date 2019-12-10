@@ -23,6 +23,7 @@ class Fun(commands.Cog):
         with urllib.request.urlopen(steamAPIUsrURL) as userurl:
             response = json.loads(userurl.read().decode())
             steamUser = response['response']['players'][0]
+            
         with urllib.request.urlopen(steamAPIURL) as url:
             data = json.loads(url.read().decode())
             for game in data['response']['games']:
@@ -32,6 +33,7 @@ class Fun(commands.Cog):
         embed.set_thumbnail(url = steamUser['avatarfull'])
         embed.add_field(name = 'Total hours played:', value = f' **{round(totalMinutes/60)}**', inline = True)
         embed.add_field(name = 'Games owned: ', value = f'**{data["response"]["game_count"]}**')
+
         await ctx.channel.send(content=None, embed = embed)
 
     '''
