@@ -183,7 +183,8 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.players = {}
-        self.whitelist = [204172911962095616]
+        with open('txt/whitelist.txt', 'r') as fp:
+            self.whitelist = fp.read().splitlines()
         self.noPerm = 'You do not have permission to run this command.'
         self.userNotFound = 'Your library is not found in our database. Please contact an admin.'
         self.vote = 0
@@ -295,7 +296,7 @@ class Music(commands.Cog):
     async def pause_(self, ctx):
         """Pause the currently playing song."""
 
-        if ctx.author.id in self.whitelist:
+        if str(ctx.author.id) in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_playing():
@@ -311,7 +312,7 @@ class Music(commands.Cog):
     @commands.command(name='resume')
     async def resume_(self, ctx):
         """Resume the currently paused song."""
-        if ctx.author.id in self.whitelist:
+        if str(ctx.author.id) in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_connected():
@@ -410,7 +411,7 @@ class Music(commands.Cog):
         volume: float or int [Required]
             The volume to set the player to in percentage. This must be between 1 and 100.
         """
-        if ctx.author.id in self.whitelist:
+        if str(ctx.author.id) in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_connected():
@@ -436,7 +437,7 @@ class Music(commands.Cog):
         !Warning!
             This will destroy the player assigned to your guild, also deleting any queued songs and settings.
         """
-        if ctx.author.id in self.whitelist:
+        if str(ctx.author.id) in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_connected():

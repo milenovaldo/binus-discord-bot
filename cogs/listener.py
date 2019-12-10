@@ -22,7 +22,7 @@ class Listener(commands.Cog):
             f'Logged in as {self.bot.user} \n'+
             'Logging active'
             )
-        await self.bot.change_presence(status = discord.Status.online, activity = discord.Game('!help v1.2'))   
+        await self.bot.change_presence(status = discord.Status.online, activity = discord.Game('!help v1.2.5'))   
 
     '''
     Creates an announcement when someone joins the server, sends
