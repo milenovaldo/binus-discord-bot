@@ -23,7 +23,7 @@ class Admin(commands.Cog):
     '''
     @commands.command(aliases = ['clear', 'clr'])
     async def clearMessages(self, ctx, numberOfMessages: int = 10):
-        if ctx.author.id in self.whitelist:
+        if str(ctx.author.id) in self.whitelist:
             await ctx.channel.purge(limit = (numberOfMessages + 1))
         else:
             await ctx.channel.send(self.noPerm())
@@ -35,7 +35,7 @@ class Admin(commands.Cog):
     async def announce(self, ctx, *, message):
         sendChannel = self.bot.get_channel(635840445079093250)                                  #Specifies which channel to send the response to
 
-        if ctx.author.id in self.whitelist and ctx.channel.id == 636045039386230784:        #Checks to see if the command is written by a whitelisted user and in the right channel
+        if str(ctx.author.id) in self.whitelist and ctx.channel.id == 636045039386230784:        #Checks to see if the command is written by a whitelisted user and in the right channel
             await sendChannel.send(f'@everyone {message}')
         else:
             await ctx.channel.send(self.noPerm())
@@ -47,7 +47,7 @@ class Admin(commands.Cog):
     async def kick(self, ctx, member: discord.Member, *, reason = None):
         sendChannel = self.bot.get_channel(635840445079093250)
 
-        if ctx.author.id in self.whitelist: 
+        if str(ctx.author.id) in self.whitelist: 
             await member.kick(reason = reason)
             await sendChannel.send(f'User {member.mention} has been kicked due to: {reason}', delete_after = 10)
         else:
@@ -60,7 +60,7 @@ class Admin(commands.Cog):
     async def ban(self, ctx, member: discord.Member, *, reason = None):
         sendChannel = self.bot.get_channel(635840445079093250)
 
-        if ctx.author.id in self.whitelist: 
+        if str(ctx.author.id) in self.whitelist: 
             await member.ban(reason = reason)
             await sendChannel.send(f'User {member.mention} has been banned due to: {reason}', delete_after = 10)
         else:
@@ -73,7 +73,7 @@ class Admin(commands.Cog):
     '''
     @commands.command()
     async def harass(self, ctx):
-        if ctx.author.id in self.whitelist:
+        if str(ctx.author.id) in self.whitelist:
             toBeAdded = ctx.message.mentions                #List of users mentioned in the message
 
             with open('txt/peopletoharass.txt', 'a') as fp:
@@ -83,32 +83,31 @@ class Admin(commands.Cog):
             ctx.channel.send(self.noPerm())
 
     @commands.command(name = 'addadmin', aliases = ['whitelist'])
-    async def addAdmin(self, ctx):
-        if ctx.author.id in self.whitelist:
+    async def addAdmin(self, ctx, member: discord.Member):
+        print(str(ctx.author.id) in self.whitelist)
 
-            toBeWhitelisted = ctx.message.mentions
+        if str(ctx.author.id) in self.whitelist:
 
-            with open('txt/whitelist.txt', 'a') as fp:
-                for user in toBeWhitelisted:
+            self.whitelist.append(member.id)
+            with open('txt/whitelist.txt', 'w') as fp:
+                for user in self.whitelist:
                     fp.write(f'{user}\n')
 
-            await ctx.channel.send(f'**{len(toBeWhitelisted)}** users has been added to the whitelist')
+            await ctx.channel.send(f'{member.mention}has been added to the whitelist', delete_after = 10)
         else:
             await ctx.channel.send(self.noPerm())
 
     @commands.command(name = 'removeadmin', aliases = ['unwhitelist'])
-    async def removeAdmin(self, ctx):
-        if ctx.author.id in self.whitelist:
+    async def removeAdmin(self, ctx, member: discord.Member):
+        if str(ctx.author.id) in self.whitelist:
 
-            toBeRemoved = ctx.message.mentions
-            for user in toBeRemoved:
-                self.whitelist.remove(user)
+            self.whitelist.remove(str(member.id))
             
             with open ('txt/whitelist.txt' , 'w') as fp:
                 for user in self.whitelist:
                     fp.write(f'{user}\n')
 
-            await ctx.channel.send(f'**{len(toBeRemoved)}** users have been removed from the whitelist')
+            await ctx.channel.send(f'{member.mention} have been removed from the whitelist', delete_after = 10)
 
         else:
             await ctx.channel.send(self.noPerm())
