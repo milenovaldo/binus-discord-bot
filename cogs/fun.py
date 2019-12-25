@@ -13,8 +13,10 @@ class Fun(commands.Cog):
     '''
     @commands.command(aliases = ['hourswasted', 'getdisappointed', 'steam', 'gamerflex'])
     async def steamhours(self, ctx, steamid):
-        with open('txt/steamapi.txt', 'r') as fp:
-            apikey = fp.readline()
+        with open('json/data.json', 'r') as fp:
+            self.idJson = json.load(fp)
+
+        apikey = str(self.idJson["KEY"]["steamAPI"])
 
         steamAPIURL = f'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={apikey}&steamid={steamid}&include_played_free_games=False'
         steamAPIUsrURL = f'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamid}'
