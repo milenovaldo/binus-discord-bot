@@ -33,9 +33,10 @@ brew install ffmpeg
 
 Setup:<br/>
 <a href = "https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token">Get the Discord token</a><br/>
-Then paste your token in "txt/token.txt"<br/><br/>
+<br/>
 <a href = "https://steamcommunity.com/dev/apikey">Get steam API key</a><br/>
-Then paste it in "txt/steamapi.txt"<br/><br/>
+<br/><br/>
+Run main.py and follow the instructions
 
 
 ## Functionalities
