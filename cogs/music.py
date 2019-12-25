@@ -183,8 +183,10 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.players = {}
-        with open('txt/whitelist.txt', 'r') as fp:
-            self.whitelist = fp.read().splitlines()
+        with open('json/data.json', 'r') as fp:
+            self.idJson = json.load(fp)
+        self.whitelist = list(map(int, self.idJson["ID"]["whitelistedUsers"]))
+        self.musicChannelID = int(self.idJson["ID"]["musicChannel"])
         self.noPerm = 'You do not have permission to run this command.'
         self.userNotFound = 'Your library is not found in our database. Please contact an admin.'
         self.vote = 0
@@ -244,7 +246,7 @@ class Music(commands.Cog):
         This command also handles moving the bot to different channels.
         """
         try:
-            channel = self.bot.get_channel(639742854197149717)
+            channel = self.bot.get_channel(self.musicChannelID)
         except AttributeError:
             raise InvalidVoiceChannel('No channel to join. Please either specify a valid channel or join one.')
 
@@ -296,7 +298,7 @@ class Music(commands.Cog):
     async def pause_(self, ctx):
         """Pause the currently playing song."""
 
-        if str(ctx.author.id) in self.whitelist:
+        if ctx.author.id in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_playing():
@@ -312,7 +314,7 @@ class Music(commands.Cog):
     @commands.command(name='resume')
     async def resume_(self, ctx):
         """Resume the currently paused song."""
-        if str(ctx.author.id) in self.whitelist:
+        if ctx.author.id in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_connected():
@@ -411,7 +413,7 @@ class Music(commands.Cog):
         volume: float or int [Required]
             The volume to set the player to in percentage. This must be between 1 and 100.
         """
-        if str(ctx.author.id) in self.whitelist:
+        if ctx.author.id in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_connected():
@@ -437,7 +439,7 @@ class Music(commands.Cog):
         !Warning!
             This will destroy the player assigned to your guild, also deleting any queued songs and settings.
         """
-        if str(ctx.author.id) in self.whitelist:
+        if ctx.author.id in self.whitelist:
             vc = ctx.voice_client
 
             if not vc or not vc.is_connected():
@@ -458,7 +460,7 @@ class Music(commands.Cog):
         with open('json/library.json', 'r') as fp:
             users = json.load(fp)
 
-        if str(ctx.author.id) not in users["users"]:
+        if ctx.author.id not in users["users"]:
             users["users"].update({str(ctx.author.id): [str(vc.source.title)]})
             
             with open('json/library.json', 'w') as fileToDump:
