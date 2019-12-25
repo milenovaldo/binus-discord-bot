@@ -1,0 +1,14 @@
+{
+    "ID": {
+        "owner": 0,
+        "generalChannel": 0,
+        "musicChannel": 0,
+        "whitelistedUsers": [
+            
+        ]
+    },
+    "KEY": {
+        "botToken": "0",
+        "steamAPI": "0"
+    }
+}
