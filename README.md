@@ -1,4 +1,4 @@
-<p align="left"><img width=20% src="https://image.psikolif.com/wp-content/uploads/2018/10/Logo-Binus-University-Universitas-Bina-Nusantara-PNG.png"></p>
+<p align="left"><img width=20% src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.GSVDYtq_ZIoCSHgUjIVZ3wHaCJ%26pid%3DApi&f=1"></p>
 
 ![Python](https://img.shields.io/badge/python-v3.5+-blue.svg)
 
